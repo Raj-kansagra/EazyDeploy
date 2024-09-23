@@ -1,0 +1,753 @@
+/* src/styles/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+body {
+    font-family: Roboto Slab, sans-serif;
+    background-color: #cfcfcf;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.logs-container {
+    margin-top: 20px;
+    height: 500px;
+    /* Adjust height to fit 15 lines of logs */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background: #f9f9f9;
+}
+
+.log-entry {
+    margin-bottom: 10px;
+}
+
+.hero-container {
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    width: 65%;
+}
+
+.hero__title {
+    font-size: 7vw;
+    /* Responsive title font size */
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #ffffff;
+}
+
+.hero__text {
+    font-size: 2vw;
+    /* Responsive subtitle font size */
+    margin-bottom: 2em;
+    color: #ffffff;
+}
+
+.hero__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.hero__button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 1.5vw 3vw;
+    /* Button padding based on viewport */
+    border: none;
+    border-radius: 5px;
+    font-size: 1.3vw;
+    /* Responsive button font size */
+    cursor: pointer;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+    .hero__title {
+        font-size: 10vw;
+        /* Larger title on smaller screens */
+    }
+
+    .hero__text {
+        font-size: 3.5vw;
+    }
+
+    .hero__button {
+        font-size: 2vw;
+        padding: 2vw 4vw;
+    }
+}
+
+/* Media query for mobile screens */
+@media (max-width: 480px) {
+
+    .logs-container {
+        margin-top: 20px;
+        height: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        background: #f9f9f9;
+    }
+
+    .hero__title {
+        font-size: 12vw;
+        /* Even larger title for very small screens */
+    }
+
+    .hero__text {
+        font-size: 4.5vw;
+    }
+
+    .hero__button {
+        font-size: 2.5vw;
+        padding: 3vw 5vw;
+    }
+}
+
+/* Navbar Container */
+.navbar {
+    background-color: #333;
+    /* Dark grey background */
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1500px;
+    height: 100%;
+    position: relative;
+    padding: 0 20px;
+    /* Added padding to avoid content touching edges */
+}
+
+/* Logo Styles */
+.nav-logo {
+    color: #fff;
+    /* White color for logo */
+    align-items: center;
+    text-decoration: none;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo .icon {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    margin-left: 16px;
+    color: #fff;
+    /* White color for icon */
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links {
+    color: #bbb;
+    /* Light grey color for links */
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    height: 100%;
+    border-bottom: none;
+    /* No underline */
+    transition: color 0.3s ease;
+}
+
+.nav-item {
+    line-height: 40px;
+    padding: 0.6rem 0rem;
+}
+
+/* Hover Effect */
+.nav-item:hover .nav-links {
+    color: #fff;
+    /* White color on hover */
+}
+
+/* Responsive Menu Icon */
+.nav-icon {
+    display: none;
+    color: #fff;
+    /* White color for menu icon */
+}
+
+.nav-icon .icon {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 960px) {
+    .nav-menu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background: #333;
+        /* Dark grey background for mobile menu */
+        position: absolute;
+        top: 80px;
+        left: -100%;
+        opacity: 0;
+        transition: all 0.5s ease;
+    }
+
+    .nav-item:hover .nav-links {
+        color: #fff;
+        /* White color on hover in mobile view */
+        border-bottom: none;
+        /* No underline on hover in mobile view */
+    }
+
+    .nav-menu.active {
+        left: 0;
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .nav-links {
+        padding: 1.5rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-logo .icon {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .nav-item {
+        line-height: 40px;
+        margin-right: 0rem;
+    }
+
+    .nav-icon {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        /* Adjusted for better placement */
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        color: #fff;
+        /* White color for menu icon */
+    }
+}
+
+
+/* login form */
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 430px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container .form {
+    padding: 2rem;
+}
+
+.form header {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.form input {
+    height: 60px;
+    width: 100%;
+    padding: 0 15px;
+    /* Padding inside the input */
+    font-size: 17px;
+    margin-bottom: 1.3rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    box-sizing: border-box;
+    /* Ensure padding is included in width */
+}
+
+.form input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.form a {
+    font-size: 16px;
+    color: #009579;
+    text-decoration: none;
+}
+
+.form a:hover {
+    text-decoration: underline;
+}
+
+.form input.button {
+    color: #fff;
+    background: #009579;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-top: 1.7rem;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.form input.button:hover {
+    background: #006653;
+}
+
+.form input.button:disabled {
+    background: #009579;
+    color: #bdc3c7;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.signup {
+    font-size: 17px;
+    text-align: center;
+}
+
+.signup label {
+    color: #009579;
+    cursor: pointer;
+}
+
+.signup label:hover {
+    text-decoration: underline;
+}
+
+/* Auth and Project Containers */
+.auth-container,
+.projects-container {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container input,
+.auth-container button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    /* styles here will apply to input type text */
+    padding: 3px 10px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 16px;
+    width: 70%;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 5px #4CAF50;
+}
+
+.auth-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    color: #ececec;
+    background-color: #328ff3;
+    transition: background-color 0.3s ease;
+}
+
+.save-env-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-env-btn.disabled {
+    background-color: #b0bec5;
+    /* Lightened color */
+    cursor: not-allowed;
+}
+
+.save-env-btn:enabled:hover {
+    background-color: #0056b3;
+}
+
+/* Project Items */
+/* Centered and Styled Project Form */
+.project-form {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    /* Center-align form content */
+}
+
+/* Dropdown Menu for Project Type */
+.project-form select.project-type-select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Styling for the Project Type Dropdown */
+.project-form select.project-type-select option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Styling for Form Groups */
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    width: 150px;
+    /* Adjust width as needed */
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.form-group input,
+.form-group select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.signup-button {
+    font-family: Roboto Slab;
+    border: 2px solid #ffffff;
+    /* Button border color */
+    background-color: #ffffff;
+    /* Background color */
+    color: #3950e6;
+    /* Text color */
+    font-weight: 500;
+    font-size: 16px;
+    /* Font size */
+    padding: 10px 20px;
+    /* Vertical and horizontal padding */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    outline: none;
+    /* Remove default outline */
+    text-align: center;
+    /* Center text */
+    transition: background-color 0.3s, color 0.3s;
+    /* Smooth transition for hover effects */
+}
+
+
+
+/* Specific styles for the dropdown menu */
+.project-type-select {
+    width: 100%;
+}
+
+.project-form input {
+    width: calc(100% - 22px);
+    /* Adjust width to account for padding and borders */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.env-form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 15px 3px;
+}
+
+.project-form .btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-project-btn {
+    background-color: #007bff;
+}
+
+.create-project-btn:hover {
+    background-color: #0056b3;
+}
+
+.cancel-btn {
+    background-color: #717476;
+    margin-top: 10px;
+}
+
+.cancel-btn:hover {
+    background-color: #6e6f6f;
+}
+
+/* Styled Projects Container */
+.projects-container {
+    margin: 80px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.projects-container h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.projects-container .project-overview {
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.projects-container .project-overview:hover {
+    background-color: #d2d0d0;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Project Overview */
+.project-overview {
+    display: block;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.project-overview:hover {
+    background-color: #f0f0f0;
+}
+
+.project-detail {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 80px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 40%;
+}
+
+.project-detail h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.project-detail p {
+    font-size: 16px;
+    color: #555;
+    margin: 10px 0;
+}
+
+.project-detail strong {
+    color: #333;
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: #e74c3c;
+}
+
+.delete-btn:disabled {
+    background-color: #e74c3c;
+    color: #c7bdbd;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.delete-btn:focus {
+    outline: none;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.delete-btn:focus {
+    outline: none;
+}
+
+/* Styles specific to the Redeploy button */
+.deploy-btn {
+    background-color: #69c04e;
+}
+
+.deploy-btn:not(:disabled):hover {
+    background-color: #58c23a;
+}
+
+.container-deploy {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.deploy-btn:disabled {
+    background-color: #a5dfa1;
+    cursor: not-allowed;
+}
+
+.deploy-btn:disabled:hover {
+    background-color: #a5dfa1;
+}
+
+.create-project-btn {
+    background-color: #007bff;
+}
+
+.create-project-btn:hover {
+    background-color: #0056b3;
+}
+
+.create-btn {
+    background-color: #007bff;
+}
+
+.create-btn:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 900px) {
+    .project-detail {
+        max-width: 60%;
+        padding: 2rem 2rem;
+        /* More padding for larger screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .project-detail {
+        margin-bottom: 0;
+        max-width: 100%;
+        padding: 0.6rem 1.7rem 1.7rem 1.7rem;
+        /* More padding for larger screens */
+    }
+
+    .container-deploy {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 10px 0px;
+    }
+
+    .projects-container {
+        margin-top: 50px;
+        margin-bottom: 0;
+        padding: 20px;
+    }
+
+    .delete-env-btn {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+
+    .add-env-btn {
+        font-size: 16px;
+        padding: 7px 15px;
+    }
+}
