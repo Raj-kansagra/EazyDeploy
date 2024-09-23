@@ -6,6 +6,7 @@ const mime = require('mime-types');
 
 const PROJECT_ID = process.env.PROJECT_ID || 'default-project';
 const packageJsonPath = path.join(__dirname, 'output', 'package.json');
+const viteConfigPath = path.join(__dirname, 'output', 'vite.config.js');
 
 const s3Client = new S3Client({
     region: process.env.AWS_REGION,
@@ -45,6 +46,45 @@ function updatePackageJson() {
     });
 }
 
+// Function to update vite.config.js
+// Function to update vite.config.js
+function updateViteConfig(basePath) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(viteConfigPath, 'utf8', (err, data) => {
+            if (err) {
+                console.error(`Error reading vite.config.js: ${err.message}`);
+                return reject(err);
+            }
+
+            // Check if base property already exists
+            if (data.includes('base:')) {
+                // If it exists, replace it
+                const updatedConfig = data.replace(/base:\s*['"`].*?['"`]/, `base: '${basePath}'`);
+                fs.writeFile(viteConfigPath, updatedConfig, 'utf8', (err) => {
+                    if (err) {
+                        console.error(`Error writing vite.config.js: ${err.message}`);
+                        return reject(err);
+                    }
+                    console.log(`vite.config.js updated with base: ${basePath}`);
+                    resolve();
+                });
+            } else {
+                // If it doesn't exist, add it
+                const updatedConfig = data.replace(/export default defineConfig\(\{/, `export default defineConfig({\n  base: '${basePath}',`);
+                fs.writeFile(viteConfigPath, updatedConfig, 'utf8', (err) => {
+                    if (err) {
+                        console.error(`Error writing vite.config.js: ${err.message}`);
+                        return reject(err);
+                    }
+                    console.log(`vite.config.js updated with base: ${basePath}`);
+                    resolve();
+                });
+            }
+        });
+    });
+}
+
+
 // Recursive function to upload files to S3
 async function uploadDirectory(directoryPath, s3Bucket, s3Path) {
     const files = fs.readdirSync(directoryPath, { withFileTypes: true });
@@ -75,9 +115,17 @@ async function uploadDirectory(directoryPath, s3Bucket, s3Path) {
 // Function to run the build and upload process
 async function init() {
     try {
-        await updatePackageJson();
+        const isViteProject = fs.existsSync(viteConfigPath);
 
-        console.log('Executing script.js');
+        if (isViteProject) {
+            console.log('Detected Vite project. Updating vite.config.js.');
+            await updateViteConfig(`${PROJECT_ID}/`);
+        } else {
+            console.log('Updating package.json for build.');
+            await updatePackageJson();
+        }
+
+        console.log('Executing build process...');
         const outDirPath = path.join(__dirname, 'output');
         const p = exec(`cd ${outDirPath} && npm install && npm run build`);
 
@@ -91,10 +139,11 @@ async function init() {
 
         p.on('close', async () => {
             console.log('Build Complete');
-            const distFolderPath = path.join(__dirname, 'output', 'build');
+
+            const outputFolderPath = isViteProject ? path.join(outDirPath, 'dist') : path.join(outDirPath, 'build');
 
             console.log('Starting to upload recursively');
-            await uploadDirectory(distFolderPath, process.env.S3_BUCKET_NAME, PROJECT_ID);
+            await uploadDirectory(outputFolderPath, process.env.S3_BUCKET_NAME, PROJECT_ID);
             console.log('Upload Complete');
         });
     } catch (err) {

@@ -10,8 +10,16 @@ RUN apt-get install git -y
 
 WORKDIR /home/app
 
-ENV AWS_ACCESS_KEY_ID=your-access-key
-ENV AWS_SECRET_ACCESS_KEY=your-scret-key
+# ---------------------------------------------------------------------------
+# fill the credentials
+
+# ENV AWS_ACCESS_KEY_ID=
+# ENV AWS_SECRET_ACCESS_KEY=
+# ENV AWS_REGION=
+# ENV S3_BUCKET_NAME=
+
+# ---------------------------------------------------------------------------
+
 
 COPY main.sh main.sh
 COPY script.js script.js
