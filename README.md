@@ -53,7 +53,7 @@ The Redis server will now be running on port `6379`.
 
 ### 2. Frontend Docker Configuration
 
-1. Inside `frontend-docker-config` folder, complete `.env` file with the given environment variables.
+1. Inside `frontend-docker-config` folder, complete credential details in `Dockerfile` with the given environment variables.
 2. Build the Docker image inside `frontend-docker-config`:
 
     ```bash
@@ -64,7 +64,7 @@ The Redis server will now be running on port `6379`.
 
 ### 3. Backend Docker Configuration
 
-1. Inside `backend-docker-config` folder, complete `.env` file with the given environment variables.
+1. Inside `backend-docker-config` folder, complete credential details in `Dockerfile` with the given environment variables.
 2. Build the Docker image inside `backend-docker-config`:
 
     ```bash
@@ -80,14 +80,14 @@ To set up the application using the configurations in `EazyDeploy`:
 1. Navigate to the `EazyDeploy/backend` folder and create a `.env` file with the following environment variables:
 
     ```env
-    MONGODB_URL=your_mongodb_url
-    JWT_SECRET=your_jwt_secret
-    EMAIL_USER=your_email_user
-    EMAIL_PASS=your_email_pass
-    AWS_ACCESS_KEY_ID=your_access_key
-    AWS_SECRET_ACCESS_KEY=your_secret_key
-    HOSTED_ZONE_ID=your_hosted_zone_id
-    CERTIFICATE_ARN=your_certificate_arn
+    MONGODB_URL=
+    JWT_SECRET=
+    EMAIL_USER=
+    EMAIL_PASS=
+    AWS_ACCESS_KEY_ID=
+    AWS_SECRET_ACCESS_KEY=
+    HOSTED_ZONE_ID=
+    CERTIFICATE_ARN=
     ```
 
 2. Navigate to the `EazyDeploy/backend/Queues` folder and start the worker:
